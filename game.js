@@ -29,12 +29,15 @@ let activeApiBase = apiCandidates[0];
 async function api(path, options = {}) {
   let lastError;
   for (const base of apiCandidates) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 1800);
     try {
-      const response = await fetch(`${base}${path}`, { ...options, headers: { 'content-type': 'application/json', ...(options.headers || {}) } });
+      const response = await fetch(`${base}${path}`, { ...options, signal: controller.signal, headers: { 'content-type': 'application/json', ...(options.headers || {}) } });
       const body = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(body.error || `http_${response.status}`);
-      activeApiBase = base; state.backendConnected = true; return body;
+      activeApiBase = base; state.backendConnected = true; clearTimeout(timeout); return body;
     } catch (error) { lastError = error; }
+    clearTimeout(timeout);
   }
   state.backendConnected = false;
   throw lastError || new Error('backend_unavailable');
@@ -127,9 +130,11 @@ function renderTutorial() {
 function finishTutorial() { state.tutorialComplete = true; if (state.userId) localStorage.setItem(`qiangzhan:tutorial:${state.userId}`, 'done'); $('#tutorial-screen').classList.add('hidden'); showToast('新手教學完成！商店會在第一場對戰後解鎖'); }
 async function login() {
   const input = $('#login-name'); const username = input.value.trim(); if (!username) { showToast('請先輸入玩家名稱'); input.focus(); return; }
+  const loginButton = $('#login-btn'); if (loginButton) { loginButton.disabled = true; loginButton.textContent = '連線中…'; }
   let isNew = true;
   try { const result = await api('/api/auth/login', { method: 'POST', body: JSON.stringify({ username }) }); applyUser(result.user); isNew = result.isNew; }
   catch { applyUser({ id: `local_${username}`, username, level: 0, coins: 0, kills: 0, wins: 0, owned: [], storeUnlocked: false }); showToast('後端尚未連線，已使用本機示範資料'); }
+  if (loginButton) { loginButton.disabled = false; loginButton.textContent = '登入／建立帳號　→'; }
   state.party = [{ name: state.username, avatar: state.username.slice(0, 1).toUpperCase(), color: 'cyan', owner: true, id: state.userId }];
   $('#login-screen').classList.add('hidden'); updateProfile(); updateCoins(); updateStoreUI(); renderSquad();
   if (isNew || !localStorage.getItem(`qiangzhan:tutorial:${state.userId}`)) openTutorial();
