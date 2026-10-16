@@ -13,6 +13,10 @@
 
 GitHub Actions 設定在 `.github/workflows/android-apk.yml`。每次推送到 `main` 或 `master`，或手動執行 workflow，都會編譯 `app-debug.apk` 並上傳成 Actions Artifact。
 
+## 後端服務
+
+第一版 Node.js 後端位於 `backend/`，支援登入、0 級新帳號、公開／私人房間、好友加入、真人不足時補 AI，以及對戰結算。啟動方式請看 `backend/README.md`；目前使用記憶體資料，正式上線前要接資料庫與驗證服務。
+
 ## 本機預覽
 
 直接用瀏覽器開啟 `index.html` 即可。建議用桌面瀏覽器觀看完整介面，也支援手機寬度。
