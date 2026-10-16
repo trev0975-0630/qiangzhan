@@ -4,7 +4,7 @@
         android:allowBackup="true"
         android:label="槍戰"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="false">
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
