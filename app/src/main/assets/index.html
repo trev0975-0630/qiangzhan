@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEON STRIKE｜霓虹突襲</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand"><span class="brand-mark">N</span><span>NEON<br /><b>STRIKE</b></span></div>
+        <div class="profile-mini"><div class="avatar avatar-cyan">A</div><div><strong>夜行者</strong><small>LV. 24　<span class="online-dot"></span> 在線</small></div><button class="icon-button" aria-label="設定">⚙</button></div>
+        <nav class="main-nav" aria-label="主選單">
+          <button class="nav-item active" data-screen="home"><span>⌂</span>作戰中心</button>
+          <button class="nav-item" data-screen="armory"><span>✦</span>軍械庫</button>
+          <button class="nav-item" data-screen="friends"><span>♧</span>好友小隊 <em>3</em></button>
+        </nav>
+        <div class="season-card"><span class="eyebrow">SEASON 03</span><strong>霓虹黎明</strong><p>賽季剩餘 18 天</p><div class="progress"><i style="width: 68%"></i></div><small>680 / 1000 XP</small></div>
+        <div class="sidebar-bottom"><button class="nav-item"><span>?</span>新手訓練</button><button class="nav-item"><span>↪</span>登出</button></div>
+      </aside>
+
+      <main class="content">
+        <header class="topbar"><div><span class="breadcrumb">作戰中心</span><span class="slash">/</span><span id="section-title">選擇你的戰場</span></div><div class="top-actions"><div class="coin-pill"><span class="coin">◈</span><b id="coin-balance">2,480</b><button id="add-coins" aria-label="獲得金幣">＋</button></div><button class="bell" aria-label="通知">♢<i></i></button></div></header>
+
+        <section id="home-screen" class="screen active-screen">
+          <div class="welcome-row"><div><p class="eyebrow">WELCOME BACK, OPERATIVE</p><h1>準備好<br /><span>突襲了嗎？</span></h1></div><div class="quick-stats"><div><b>24</b><small>等級</small></div><div><b>1,846</b><small>擊殺</small></div><div><b>72%</b><small>勝率</small></div></div></div>
+          <div class="hero-grid">
+            <article class="mode-card featured"><div class="mode-copy"><span class="tag live">● 熱門模式</span><h2>霓虹攻防戰</h2><p>與小隊並肩作戰，在城市廢墟中爭奪資料核心。</p><div class="mode-meta"><span>▣ 4v4 小隊</span><span>◷ 約 8 分鐘</span></div><button class="primary-button" id="play-now">開始匹配 <span>→</span></button></div><div class="hero-art"><div class="sun"></div><div class="city city-back"></div><div class="city city-front"></div><div class="hero-character"><div class="helmet"></div><div class="visor"></div><div class="body"></div><div class="gun"></div></div><span class="art-label">N-07</span></div></article>
+            <article class="mode-card compact"><div class="compact-art training-art"><span>靶場</span><div class="target">＋</div></div><div class="compact-copy"><span class="tag">SOLO</span><h3>自由訓練</h3><p>熟悉你的武器與準心。</p><button class="text-button" id="training-btn">進入靶場　→</button></div></article>
+            <article class="mode-card compact"><div class="compact-art ranked-art"><span>排位</span><div class="rank-badge">III</div></div><div class="compact-copy"><span class="tag purple">RANKED</span><h3>菁英排位</h3><p>挑戰更高段位，登上排行榜。</p><button class="text-button" id="ranked-btn">查看排名　→</button></div></article>
+          </div>
+          <div class="section-heading"><h2>小隊成員 <span>3 / 5 在線</span></h2><button class="outline-button" id="invite-btn">＋ 邀請好友</button></div>
+          <div class="squad-row" id="squad-row"></div>
+        </section>
+
+        <section id="armory-screen" class="screen"><div class="page-heading"><div><p class="eyebrow">LOADOUT & COSMETICS</p><h1>軍械庫</h1><p>用金幣換上你的專屬風格。</p></div><div class="coin-large"><span class="coin">◈</span><b id="coin-balance-armory">2,480</b></div></div><div class="armory-tabs"><button class="active">全部</button><button>角色造型</button><button>武器塗裝</button><button>表情動作</button></div><div class="shop-grid" id="shop-grid"></div></section>
+
+        <section id="friends-screen" class="screen"><div class="page-heading"><div><p class="eyebrow">SOCIAL // SQUAD UP</p><h1>好友小隊</h1><p>邀請好友一起進入戰場。</p></div><button class="primary-button" id="create-room">建立房間　＋</button></div><div class="friends-layout"><div class="friends-panel"><div class="panel-heading"><h2>好友列表 <span>12</span></h2><div class="search">⌕ <input placeholder="搜尋玩家 ID" /></div></div><div id="friends-list"></div></div><div class="room-panel"><div class="room-top"><div><p class="eyebrow">YOUR PARTY</p><h2>霓虹突襲小隊</h2></div><span class="room-status">公開房間</span></div><div class="room-code">房間代碼 <b id="room-code">NS-4821</b><button id="copy-code">複製</button></div><div class="party-slots" id="party-slots"></div><button class="primary-button full" id="room-start">開始遊戲　→</button></div></div></section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <div class="modal-backdrop hidden" id="modal"><div class="modal-card"><button class="close-modal" id="close-modal">×</button><div id="modal-content"></div></div></div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
